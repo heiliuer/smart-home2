@@ -11,5 +11,7 @@
     - raspberry pi 3b
     
 - architecture
+
+    ![img error](readme_files/images/20170209131809.png)
     
     
