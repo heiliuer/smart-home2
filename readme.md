@@ -1,6 +1,6 @@
 # smart-home2
 
-[参考文档](http://note.youdao.com/noteshare?id=6d883798accd2661c33b77762e605d30)
+[reference doc](http://note.youdao.com/noteshare?id=6d883798accd2661c33b77762e605d30)
 
 - related technology & device
 
