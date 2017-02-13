@@ -18,6 +18,10 @@ var settings = {
 
 var server = new mosca.Server(settings);
 
+
+var httpServices = require("./http_services");
+
+
 server.on('clientConnected', function (client) {
     console.log('client connected', client.id);
 });
@@ -34,10 +38,23 @@ server.on('ready', setup);
 function setup() {
     console.log('Mosca server is up and running');
 
-    setInterval(function () {
+    // setInterval(function () {
+    //     var message = {
+    //         topic: '/hello/world',
+    //         payload: 'message' + new Date().getTime(), // or a Buffer
+    //         qos: 0, // 0, 1, or 2
+    //         retain: false // or true
+    //     };
+    //
+    //     server.publish(message, function () {
+    //         console.log('done!');
+    //     });
+    // }, 4000)
+
+    httpServices.setSendMessage(function (msg) {
         var message = {
-            topic: '/hello/world',
-            payload: 'message'+new Date().getTime(), // or a Buffer
+            topic: '/switcher',
+            payload: msg, // or a Buffer
             qos: 0, // 0, 1, or 2
             retain: false // or true
         };
@@ -45,5 +62,5 @@ function setup() {
         server.publish(message, function () {
             console.log('done!');
         });
-    }, 4000)
+    })
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-stand"/>
+    <title>Title</title>
+    <style>
+        .switch input + span:after {
+            content: "已关闭";
+        }
+
+        .switch input:checked + span:after {
+            content: "已打开";
+        }
+    </style>
+</head>
+<body>
+<h2>pwm led 调光系统</h2>
+<input type="range" style="width: 100%" step="5" max="1023" min="0" id="range">
+
+<h2>继电器</h2>
+<label class="switch"><input type="checkbox" name="" id="switch"><span></span></label>
+
+</body>
+<script src="index.js"></script>
+</html>
