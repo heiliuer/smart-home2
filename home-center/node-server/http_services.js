@@ -15,7 +15,7 @@ try {
     PORT = args.length && args[0];
 } catch (e) {
 }
-PORT = PORT || 6666;
+PORT = PORT || 8081;
 
 
 var WebSocketServer = require('websocket').server;

@@ -33,7 +33,7 @@ topic = "/switcher"
 
 --switch
 switch_pin = 3
-gpio.mode(switch_pin, gpio.OUTPUT)
+gpio.mode(switch_pin, gpio.OUTPUT, gpio.PULLUP)
 
 -- on publish message receive event
 m:on("message", function(client, topic, data)
@@ -75,7 +75,6 @@ function my_mqtt.start()
         function(client, reason)
             print("failed reason: " .. reason)
         end)
-
 end
 
 -- Calling subscribe/publish only makes sense once the connection
