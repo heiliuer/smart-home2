@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+    <meta name="referrer" content="no-referrer"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <title>树莓派主页</title>
+</head>
+<body>
+<ul>
+    <li>
+        <a href="" data-port="8080">Superviosr 控制台</a>
+    </li>
+    <li>
+        <a href="" data-port="7777">aiss</a>
+    </li>
+    <li>
+        <a href="" data-port="8081">smarhome-nodeserver</a>
+    </li>
+</ul>
+
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script>
+    +function () {
+        var hrefPrefix = location.protocol + "//" + location.hostname + ":";
+        $("[data-port]").each(function () {
+            var $self = $(this)
+            var href = hrefPrefix + $self.data("port");
+            $self.attr("href", href)
+            $self.attr("target", href)
+        })
+    }();
+</script>
+</html>
