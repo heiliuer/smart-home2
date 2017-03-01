@@ -30,7 +30,7 @@ var vm = new Vue({
             if (this.isConnected) {
                 var data = {
                     topic: device.topic,
-                    value: device.value
+                    value: device.value ? "1" : "0"
                 }
                 socket.send(JSON.stringify(data));
             }
@@ -63,7 +63,7 @@ function openSocket() {
             if ("topic" in data) {
                 var device = vm.devices[devicesIndexs[data.topic]];
                 device.enable = true
-                device.value = data.value == "1" || data.value == true
+                device.value = data.value == true
             } else {
                 console.log(event.data, " is invalid format!");
             }

@@ -104,7 +104,7 @@ function setup() {
         }
         var message = {
             topic: data.topic,
-            payload: data.value ? "1" : "-1", // or a Buffer
+            payload: data.value, // or a Buffer
             qos: 0, // 0, 1, or 2
             retain: false // or true
         };
