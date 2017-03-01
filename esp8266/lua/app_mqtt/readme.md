@@ -1,1 +1,0 @@
-# smartconfig + gpio
