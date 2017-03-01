@@ -4,7 +4,8 @@
 
 var devices = [
     {type: "switcher", icon: "img/desk.png", "topic": "/switcher_a0:20:a6:16:f6:2c", value: true, enable: true},
-    {type: "switcher", icon: "img/floor.gif", "topic": "/switcher_60:01:94:08:de:7b", value: true, enable: true}
+    {type: "switcher", icon: "img/floor.gif", "topic": "/switcher_60:01:94:08:de:7b", value: true, enable: true},
+    {type: "dh11", icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:00:f8:85", value: "", enable: true},
 ]
 
 var devicesIndexs = {}
@@ -23,6 +24,10 @@ var vm = new Vue({
 
     },
     methods: {
+        parseDh11Data: function (value) {
+            var datas = value.split(",");
+            return "温度：" + datas[1] + "℃  湿度：" + datas[2] + "%"
+        },
         change: function (device) {
             console.log("change:", device)
             device.disable = true;
@@ -61,9 +66,21 @@ function openSocket() {
         try {
             var data = JSON.parse(event.data);
             if ("topic" in data) {
-                var device = vm.devices[devicesIndexs[data.topic]];
-                device.enable = true
-                device.value = data.value == true
+                if (data.topic in devicesIndexs) {
+                    var device = vm.devices[devicesIndexs[data.topic]];
+                    device.enable = true
+                    if (device.type == "switcher") {
+                        device.value = data.value == true
+                    } else if (device.type == "dh11") {
+                        device.value = data.value
+                    } else {
+                        device.value = data.value
+                    }
+                } else {
+                    console.log("未识别的设备数据", data);
+                }
+
+
             } else {
                 console.log(event.data, " is invalid format!");
             }

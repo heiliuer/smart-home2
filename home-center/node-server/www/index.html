@@ -20,6 +20,9 @@
                    v-model="device.value"
                    class="weui_switch float_right_switch">
         </div>
+        <div class="weui_cell weui_check_label" v-if="device.type=='dh11'">
+            <p style="text-align: center" v-text="parseDh11Data(device.value)"></p>
+        </div>
     </div>
 
     <!--<div class="weui_cells">
