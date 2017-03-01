@@ -1,27 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <meta name="renderer" content="webkit|ie-stand"/>
-    <title>Title</title>
-    <style>
-        .switch input + span:after {
-            content: "已关闭";
-        }
-
-        .switch input:checked + span:after {
-            content: "已打开";
-        }
-    </style>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>米家智能家居控制系统</title>
+    <link rel="stylesheet" href="css/weui.min.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-<h2>pwm led 调光系统</h2>
-<input type="range" style="width: 100%" step="5" max="1023" min="0" id="range">
+<div id="vue-app" class="invisiable">
+    <div v-show="!isConnected" class="top_error">
+        <p>连接中断，正在尝试重连</p>
+    </div>
 
-<h2>继电器</h2>
-<label class="switch"><input type="checkbox" name="" id="switch"><span></span></label>
+    <div class="weui_cells" v-for="device in devices">
+        <div class="weui_cell weui_check_label" v-if="device.type=='switcher'">
+            <img :src="device.icon" class="img_light" :class="{gray:!isConnected||!device.value}" alt="">
+            <input type="checkbox" :disabled="!isConnected||!device.enable" @change="change(device)"
+                   v-model="device.value"
+                   class="weui_switch float_right_switch">
+        </div>
+    </div>
 
+    <!--<div class="weui_cells">
+        <div class="weui_cell weui_check_label">
+            <img src="img/desk.png" class="img_light" :class="{gray:!isConnected||!status.deskLightOn}" alt="">
+            <input type="checkbox" :disabled="!isConnected||waitEcho" @change="switchLight()"
+                   v-model="status.deskLightOn"
+                   class="weui_switch float_right_switch">
+        </div>
+    </div>
+
+
+    <div class="weui_cells">
+        <div class="weui_cell weui_check_label">
+            <img src="img/floor.gif" class="img_light" :class="{gray:!isConnected||!status.floorLightOn}" alt="">
+            <input type="checkbox" :disabled="!isConnected||waitEcho" @change="switchLight()"
+                   v-model="status.floorLightOn"
+                   class="weui_switch float_right_switch">
+        </div>
+    </div>-->
+
+
+    <div class="weui_btn_area">
+        <a id="qrcode_switcher" href="javascript:;" class="weui_btn weui_btn_primary">分享</a>
+    </div>
+
+    <p class="p-center" onclick="window.location.reload()">刷新</p>
+
+    <div class="weui_dialog_alert invisiable" id="qrcode">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><strong class="weui_dialog_title">扫一扫分享网页</strong></div>
+            <div class="weui_dialog_bd">
+                <img width="90%" :src="qrcodeUrl" alt="">
+                <p class="info"></p>
+            </div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!--<button onclick="lightDesk()">台灯</button>
+<button onclick="lightFloor()">吊灯</button>-->
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/CONFIG.js"></script>
+<script src="js/app.js"></script>
 </body>
-<script src="index.js"></script>
 </html>

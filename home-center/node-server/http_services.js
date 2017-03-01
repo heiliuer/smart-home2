@@ -59,6 +59,7 @@ wsServer.on('request', function (request) {
     connection.on('message', function (message) {
         if (message.type === 'utf8') {
             sendMessage && sendMessage(message.utf8Data)
+            connection.send(message.utf8Data)
         } else {
             console.log('Received non-utf8Data Message: ' + message);
         }

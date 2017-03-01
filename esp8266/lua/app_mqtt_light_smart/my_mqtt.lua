@@ -1,9 +1,8 @@
 my_mqtt = {}
-
+btn = require("btn")
 -- init mqtt client without logins, keepalive timer 120s
--- clientid不能一直，否则同clientId客户端冲突导致不断重连
-local client_id = "clientid_" .. wifi.sta.getmac()
-
+local mac = wifi.sta.getmac()
+local client_id = "clientid_" .. mac
 local m = mqtt.Client(client_id, 120)
 
 -- init mqtt client with logins, keepalive timer 120sec
@@ -32,18 +31,31 @@ local host = "192.168.31.247"
 
 local port = 1883
 
-local topic = "/switcher"
+local topic = "/switcher_" .. mac
 
 --switch
-switch_pin = 1
+local switch_pin = 1 --gpio5
 
 
 gpio.mode(switch_pin, gpio.OUTPUT, gpio.PULLUP)
-gpio.write(switch_pin, gpio.HIGH)
---btn_pin = 0
---gpio.mode(btn_pin, gpio.INPUT, gpio.PULLUP)
---gpio.trig(btn_pin, "low", function()
---end)
+gpio.write(switch_pin, gpio.LOW)
+
+
+local btn1 = 2 --gpio4
+
+btn.onPress(btn1, function()
+    print(btn1 .. " press")
+    local switch_status = gpio.read(switch_pin)
+    if switch_status == gpio.HIGH then
+        switch_status = gpio.LOW
+    else
+        switch_status = gpio.HIGH
+    end
+    gpio.write(switch_pin, switch_status)
+    m:publish(topic, "" .. switch_status, 0, 0, function(client)
+        --        print("sent")
+    end)
+end)
 
 
 -- on publish message receive event
@@ -77,7 +89,7 @@ function my_mqtt.start()
 
             -- publish a message with data = hello, QoS = 0, retain = 0
             m:publish(topic, "" .. switch_status, 0, 0, function(client)
-                print("sent")
+                --                print("sent")
             end)
 
             --m:close();

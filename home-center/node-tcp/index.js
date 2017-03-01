@@ -21,7 +21,7 @@ module.exports = function (str) {
     // });
 
     try {
-        client.connect(80, '192.168.31.135', function () {
+        client.connect(80, '192.168.31.166', function () {
             console.log('Connected');
             client.write(str);
             client.destroy()

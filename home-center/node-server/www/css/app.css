@@ -1,0 +1,35 @@
+
+.img_light {
+    width: 100px;
+}
+
+.float_right_switch {
+    float: right;
+    display: inline-block;
+    position: absolute;
+    right: 10%;
+    top: 33%;
+}
+
+.img_light,.gray{
+    transition: 1s;
+    animation-timing-function: ease-out;
+}
+
+.gray, #vue-app input:disabled {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+.invisiable{
+    display: none;
+}
+.top_error p{text-align: center;color: #fff;background-color: #e64340;}
+.p-center{
+color: #5d5d5d;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: underline;}
