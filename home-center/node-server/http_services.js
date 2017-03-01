@@ -51,6 +51,7 @@ wsServer.on('request', function (request) {
 
     // connection.send(JSON.stringify({type: "comments"}))
 
+    onConnect && onConnect(connection);
 
     console.log((new Date().format("yyyy-MM-dd hh:mm:ss")) + ' Peer ' + connection.remoteAddress + ' connected.');
 
@@ -59,7 +60,7 @@ wsServer.on('request', function (request) {
     connection.on('message', function (message) {
         if (message.type === 'utf8') {
             sendMessage && sendMessage(message.utf8Data)
-            connection.send(message.utf8Data)
+            //connection.send(message.utf8Data)
         } else {
             console.log('Received non-utf8Data Message: ' + message);
         }
@@ -71,10 +72,18 @@ wsServer.on('request', function (request) {
 })
 
 var sendMessage;
-
+var onConnect;
 
 module.exports = {
     setSendMessage: function (func) {
         sendMessage = func
-    }
+    },
+    sendMessage: function (message) {
+        connections.forEach(function (connection) {
+            connection.send(JSON.stringify(message))
+        })
+    },
+    setOnConnect: function (func) {
+        onConnect = func
+    },
 }

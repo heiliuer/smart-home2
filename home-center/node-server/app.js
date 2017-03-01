@@ -21,15 +21,35 @@ var server = new mosca.Server(settings);
 
 var httpServices = require("./http_services");
 
-var clients = []
+var clientStatus = []
+var clientStatusIndex = {}
 
-function addClient(client) {
-
+function addAndRefreshClientStatus(packet, client) {
+    var topic = packet.topic;
+    var newStatus = {
+        value: "" + packet.payload,
+        topic: topic,
+    }
+    if (topic in clientStatusIndex) {
+        clientStatus[clientStatusIndex[topic]] = newStatus;
+    } else {
+        clientStatus.push(newStatus);
+        clientStatusIndex[topic] = clientStatus.length - 1
+    }
 }
 
-function getClientById(clientId) {
-
+function getclientStatusTopic(topic) {
+    if (topic in clientStatusIndex) {
+        return clientStatus[clientStatusIndex[topic]];
+    }
+    return null;
 }
+
+httpServices.setOnConnect(function (connection) {
+    clientStatus.forEach(function (status) {
+        connection.send(JSON.stringify(status));
+    })
+})
 
 server.on('clientConnected', function (client) {
     console.log('client connected', client.id);
@@ -42,8 +62,16 @@ server.on('clientDisconnected', function (client) {
 
 // fired when a message is received
 server.on('published', function (packet, client) {
-    console.log('Published', ""+packet.payload);
+    addAndRefreshClientStatus(packet, client);
+    var value = "" + packet.payload;
+    console.log('Published', value);
     console.log(packet)
+    var data = {
+        topic: packet.topic,
+        value: value
+    }
+    httpServices.sendMessage(data);
+
 });
 
 server.on('ready', setup);

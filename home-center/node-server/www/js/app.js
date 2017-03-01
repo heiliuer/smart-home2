@@ -4,7 +4,7 @@
 
 var devices = [
     {type: "switcher", icon: "img/desk.png", "topic": "/switcher_a0:20:a6:16:f6:2c", value: true, enable: true},
-    {type: "switcher", icon: "img/floor.gif", "topic": "switcher_mac2", value: true, enable: true}
+    {type: "switcher", icon: "img/floor.gif", "topic": "/switcher_60:01:94:08:de:7b", value: true, enable: true}
 ]
 
 var devicesIndexs = {}
@@ -61,7 +61,9 @@ function openSocket() {
         try {
             var data = JSON.parse(event.data);
             if ("topic" in data) {
-                vm.devices[devicesIndexs[data.topic]].enable = true
+                var device = vm.devices[devicesIndexs[data.topic]];
+                device.enable = true
+                device.value = data.value == "1" || data.value == true
             } else {
                 console.log(event.data, " is invalid format!");
             }

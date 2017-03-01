@@ -1,9 +1,8 @@
 my_mqtt = {}
 
 -- init mqtt client without logins, keepalive timer 120s
--- clientid不能一直，否则同clientId客户端冲突导致不断重连
-local client_id = "clientid_" .. wifi.sta.getmac()
-
+local mac = wifi.sta.getmac()
+local client_id = "clientid_" .. mac
 local m = mqtt.Client(client_id, 120)
 
 -- init mqtt client with logins, keepalive timer 120sec
@@ -32,7 +31,7 @@ local host = "192.168.31.247"
 
 local port = 1883
 
-local topic = "/switcher"
+local topic = "/switcher_" .. mac
 
 --switch
 switch_pin = 1
@@ -77,7 +76,7 @@ function my_mqtt.start()
 
             -- publish a message with data = hello, QoS = 0, retain = 0
             m:publish(topic, "" .. switch_status, 0, 0, function(client)
-                print("sent")
+                --                print("sent")
             end)
 
             --m:close();
