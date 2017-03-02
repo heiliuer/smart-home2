@@ -7,20 +7,54 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
-    <title>树莓派主页</title>
+    <link rel="stylesheet" href="css/weui.css">
+    <title>我的树莓派</title>
+    <style>
+        .weui-cell__hd img{
+            width:32px;margin-right:5px;display:block
+        }
+        .weui-cell__bd > a{
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-<ul>
-    <li>
-        <a href="" data-port="8080">Superviosr 控制台</a>
-    </li>
-    <li>
-        <a href="" data-port="7777">aiss</a>
-    </li>
-    <li>
-        <a href="" data-port="8081">smarhome-nodeserver</a>
-    </li>
-</ul>
+
+<div class="weui-cells">
+
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><img
+                    src="images/user.png"
+                    alt="" style=""></div>
+            <div class="weui-cell__bd">
+                <a data-port="8080"><p>superviosr</p></a>
+            </div>
+            <div class="weui-cell__ft">控制台</div>
+        </div>
+
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><img
+                src="images/distribute-left-edges.png"
+                alt="" style=""></div>
+        <div class="weui-cell__bd">
+            <a data-port="8081"><p>smart-home</p></a>
+        </div>
+        <div class="weui-cell__ft">智能家庭</div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><img
+                src="images/spool.png"
+                alt="" style=""></div>
+        <div class="weui-cell__bd">
+            <a data-port="8082"><p>my-home</p></a>
+        </div>
+        <div class="weui-cell__ft">追剧</div>
+    </div>
+
+</div>
 
 </body>
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -29,7 +63,8 @@
         var hrefPrefix = location.protocol + "//" + location.hostname + ":";
         $("[data-port]").each(function () {
             var $self = $(this)
-            var href = hrefPrefix + $self.data("port");
+            var host = hrefPrefix + $self.data("port");
+            var href = host + ($self.attr("href") || "")
             $self.attr("href", href)
             $self.attr("target", href)
         })

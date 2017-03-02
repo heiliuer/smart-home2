@@ -17,6 +17,7 @@ devices.forEach(function (device, index) {
 var vm = new Vue({
     el: "#vue-app",
     data: {
+        inited: false,
         devices: devices,
         isConnected: false,
         waitEcho: false,
@@ -26,7 +27,7 @@ var vm = new Vue({
     methods: {
         parseDh11Data: function (value) {
             var datas = value.split(",");
-            return "温度：" + datas[1] + "℃  湿度：" + datas[2] + "%"
+            return "温度：" + (datas[1] || "--") + "℃  湿度：" + (datas[2] || "--") + "%"
         },
         change: function (device) {
             console.log("change:", device)
@@ -58,6 +59,7 @@ function openSocket() {
         //socket.send('I am the client and I\'m listening!');
         // 关闭Socket....
         //socket.close()
+        vm.inited = true;
     };
 
 // 监听消息
@@ -115,9 +117,10 @@ var setTimeReOpenSocket = function () {
 }();
 
 openSocket();
+
 // vm.isConnected = true
 
-$("#vue-app").fadeIn(300);
+$("#vue-app").removeClass("invisiable").fadeIn(300);
 
 $("#qrcode .weui_btn_dialog").click(function () {
     $("#qrcode").hide()
