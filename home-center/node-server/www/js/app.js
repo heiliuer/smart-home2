@@ -3,8 +3,11 @@
  */
 
 var devices = [
-    {type: "switcher", icon: "img/desk.png", "topic": "/switcher_a0:20:a6:16:f6:2c", value: true, enable: true},
-    {type: "switcher", icon: "img/floor.gif", "topic": "/switcher_60:01:94:08:de:7b", value: true, enable: true},
+    {type: "switcher", name:"次卧台灯",icon: "img/desk.png", "topic": "/switcher_a0:20:a6:16:f6:2c", value: true, enable: true},
+    {type: "switcher", name:"次卧台灯",icon: "img/desk.png", "topic": "/switcher_60:01:94:08:de:7b", value: true, enable: true},
+    {type: "switcher", name:"次卧台灯",icon: "img/desk.png", "topic": "/switcher_a0:20:a6:08:24:e9", value: true, enable: true},
+    {type: "switcher", name:"次卧顶灯", icon: "img/floor.gif", "topic": "/switcher_5c:cf:7f:f0:21:31", value: true, enable: true},
+    {type: "switcher", name:"主卧顶灯",icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:08:76:dc", value: true, enable: true},
     {type: "dh11", icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:00:f8:85", value: "", enable: true},
 ]
 

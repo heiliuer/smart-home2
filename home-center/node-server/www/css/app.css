@@ -33,3 +33,8 @@ color: #5d5d5d;
     text-align: center;
     font-size: 14px;
     text-decoration: underline;}
+
+.weui_cell > p{
+    margin-left: 1em;
+    color: #565656;
+}

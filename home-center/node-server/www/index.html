@@ -14,35 +14,19 @@
     </div>
 
     <div class="weui_cells" v-for="device in devices">
+
         <div class="weui_cell weui_check_label" v-if="device.type=='switcher'">
             <img :src="device.icon" class="img_light" :class="{gray:!isConnected||!device.value}" alt="">
+            <p v-text="device.name">次卧</p>
             <input type="checkbox" :disabled="!isConnected||!device.enable" @change="change(device)"
                    v-model="device.value"
                    class="weui_switch float_right_switch">
         </div>
+
         <div class="weui_cell weui_check_label" v-if="device.type=='dh11'">
             <p style="text-align: center" v-text="parseDh11Data(device.value)"></p>
         </div>
     </div>
-
-    <!--<div class="weui_cells">
-        <div class="weui_cell weui_check_label">
-            <img src="img/desk.png" class="img_light" :class="{gray:!isConnected||!status.deskLightOn}" alt="">
-            <input type="checkbox" :disabled="!isConnected||waitEcho" @change="switchLight()"
-                   v-model="status.deskLightOn"
-                   class="weui_switch float_right_switch">
-        </div>
-    </div>
-
-
-    <div class="weui_cells">
-        <div class="weui_cell weui_check_label">
-            <img src="img/floor.gif" class="img_light" :class="{gray:!isConnected||!status.floorLightOn}" alt="">
-            <input type="checkbox" :disabled="!isConnected||waitEcho" @change="switchLight()"
-                   v-model="status.floorLightOn"
-                   class="weui_switch float_right_switch">
-        </div>
-    </div>-->
 
 
     <div class="weui_btn_area">
@@ -67,8 +51,6 @@
 
 
 </div>
-<!--<button onclick="lightDesk()">台灯</button>
-<button onclick="lightFloor()">吊灯</button>-->
 <script src="js/jquery-1.11.0.min.js"></script>
 <script src="js/vue.min.js"></script>
 <script src="js/CONFIG.js"></script>
