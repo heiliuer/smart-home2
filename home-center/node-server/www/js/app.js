@@ -3,12 +3,31 @@
  */
 
 var devices = [
-    {type: "switcher", name:"次卧台灯",icon: "img/desk.png", "topic": "/switcher_a0:20:a6:16:f6:2c", value: true, enable: true},
-    {type: "switcher", name:"次卧台灯",icon: "img/desk.png", "topic": "/switcher_60:01:94:08:de:7b", value: true, enable: true},
-    {type: "switcher", name:"次卧台灯",icon: "img/desk.png", "topic": "/switcher_a0:20:a6:08:24:e9", value: true, enable: true},
-    {type: "switcher", name:"次卧顶灯", icon: "img/floor.gif", "topic": "/switcher_5c:cf:7f:f0:21:31", value: true, enable: true},
-    {type: "switcher", name:"主卧顶灯",icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:08:76:dc", value: true, enable: true},
-    {type: "dh11", icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:00:f8:85", value: "", enable: true},
+    {
+        type: "switcher",
+        name: "次卧台灯",
+        icon: "img/desk.png",
+        "topic": "/switcher_a0:20:a6:08:24:e9",
+        value: true,
+        enable: true
+    },
+    {
+        type: "switcher",
+        name: "次卧顶灯",
+        icon: "img/floor.gif",
+        "topic": "/switcher_5c:cf:7f:f0:21:31",
+        value: true,
+        enable: true
+    },
+    {
+        type: "switcher",
+        name: "主卧顶灯",
+        icon: "img/floor.gif",
+        "topic": "/switcher_a0:20:a6:08:76:dc",
+        value: true,
+        enable: true
+    },
+    {type: "dh11", icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:16:f6:2c", value: "", enable: true},
 ]
 
 var devicesIndexs = {}
@@ -16,6 +35,9 @@ devices.forEach(function (device, index) {
     devicesIndexs[device.topic] = index
 })
 
+function parseYushui(data) {//0,1
+    return (data === "0" ? "有" : (data === "1" ? "无" : false)) || "--"
+}
 
 var vm = new Vue({
     el: "#vue-app",
@@ -28,9 +50,12 @@ var vm = new Vue({
 
     },
     methods: {
-        parseDh11Data: function (value) {
+        parseDh11AndLightData: function (value) {
             var datas = value.split(",");
-            return "温度：" + (datas[1] || "--") + "℃  湿度：" + (datas[2] || "--") + "%"
+            return "温度：" + (datas[1] || "--") + "℃ "
+                + "湿度：" + (datas[2] || "--") + "% <br/>"
+                + "光强：" + (datas[4] || "--") + " "
+                + "雨水：" + parseYushui(datas[5])
         },
         change: function (device) {
             console.log("change:", device)

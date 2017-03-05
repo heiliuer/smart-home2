@@ -6,7 +6,7 @@ require("my_mqtt")
 local wifi_saved, saved_wifi_ssid, saved_wifi_pwd = store_util.get_wifi()
 
 --开启 smarconfig
-function start_smart_config()
+local function start_smart_config()
     print("start_smart_config")
     auto_config.start(function(wifi_ssid, wifi_pwd)
         store_util.save_wifi(wifi_ssid, wifi_pwd)
@@ -18,7 +18,7 @@ function start_smart_config()
 end
 
 --连接wifi
-function start_connecter()
+local function start_connecter()
     print("start connecter")
     wifi_connecter.start(saved_wifi_ssid, saved_wifi_pwd,
         function()
@@ -34,7 +34,7 @@ function start_connecter()
         end)
 end
 
-function start_mqtt()
+local function start_mqtt()
     print("start_mqtt")
     my_mqtt.start()
 end

@@ -24,7 +24,7 @@
         </div>
 
         <div class="weui_cell weui_check_label" v-if="device.type=='dh11'">
-            <p style="text-align: center" v-text="parseDh11Data(device.value)"></p>
+            <p style="text-align: center;width: 100%;margin-left: 0" v-html="parseDh11AndLightData(device.value)"></p>
         </div>
     </div>
 

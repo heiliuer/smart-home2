@@ -7,3 +7,7 @@
 - online build firmware
    
    [build your nodemcu firmware](https://nodemcu-build.com/)
+   
+- pins
+
+   ![nodemcu.png](nodemcu.png)

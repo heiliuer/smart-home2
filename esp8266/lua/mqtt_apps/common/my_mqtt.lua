@@ -1,5 +1,5 @@
 my_mqtt = {}
-btn = require("btn")
+require("mqtt_handler")
 -- init mqtt client without logins, keepalive timer 120s
 local mac = wifi.sta.getmac()
 local client_id = "clientid_" .. mac
@@ -19,6 +19,7 @@ end)
 
 m:on("offline", function(client)
     print("offline")
+    mqtt_handler.on_mqtt_offline(client)
 end)
 
 
@@ -33,43 +34,12 @@ local port = 1883
 
 local topic = "/switcher_" .. mac
 
---switch
-local switch_pin = 1 --gpio5
-
-
-gpio.mode(switch_pin, gpio.OUTPUT, gpio.PULLUP)
-gpio.write(switch_pin, gpio.LOW)
-
-
-local btn1 = 2 --gpio4
-
-btn.onPress(btn1, function()
-    print(btn1 .. " press")
-    local switch_status = gpio.read(switch_pin)
-    if switch_status == gpio.HIGH then
-        switch_status = gpio.LOW
-    else
-        switch_status = gpio.HIGH
-    end
-    gpio.write(switch_pin, switch_status)
-    m:publish(topic, "" .. switch_status, 0, 0, function(client)
-        --        print("sent")
-    end)
-end)
-
+mqtt_handler.init(m, topic)
 
 -- on publish message receive event
 m:on("message", function(client, topic, data)
     print(topic .. ":")
-    if data ~= nil then
-        print(data)
-        local num = tonumber(data)
-        if (num > 0) then
-            gpio.write(switch_pin, gpio.HIGH)
-        else
-            gpio.write(switch_pin, gpio.LOW)
-        end
-    end
+    mqtt_handler.on_mqtt_message(mqtt_client, topic, data)
 end)
 
 print("mqtt inited!")
@@ -85,12 +55,7 @@ function my_mqtt.start()
                 print("subscribe success")
             end)
 
-            local switch_status = gpio.read(switch_pin)
-
-            -- publish a message with data = hello, QoS = 0, retain = 0
-            m:publish(topic, "" .. switch_status, 0, 0, function(client)
-                --                print("sent")
-            end)
+            mqtt_handler.on_mqtt_connect(client, topic)
 
             --m:close();
             -- you can call m:connect again
