@@ -3,10 +3,18 @@
  */
 
 var devices = [
+   /* {
+        type: "switcher_readonly",
+        name: "在办公",
+        icon: "img/icon_desk.png",
+        "topic": "/switcher_a0:20:a6:00:f8:85",//大板子
+        value: true,
+        enable: true
+    },*/
     {
-        type: "switcher",
-        name: "次卧台灯",
-        icon: "img/desk.png",
+        type: "switcher_readonly",
+        name: "房间有人",
+        icon: "img/icon_at_house.png",
         "topic": "/switcher_a0:20:a6:08:24:e9",
         value: true,
         enable: true
@@ -14,7 +22,7 @@ var devices = [
     {
         type: "switcher",
         name: "次卧顶灯",
-        icon: "img/floor.gif",
+        icon: "img/icon_floor.gif",
         "topic": "/switcher_5c:cf:7f:f0:21:31",
         value: true,
         enable: true
@@ -22,12 +30,12 @@ var devices = [
     {
         type: "switcher",
         name: "主卧顶灯",
-        icon: "img/floor.gif",
+        icon: "img/icon_floor.gif",
         "topic": "/switcher_a0:20:a6:08:76:dc",
         value: true,
         enable: true
     },
-    {type: "dh11", icon: "img/floor.gif", "topic": "/switcher_a0:20:a6:16:f6:2c", value: "", enable: true},
+    {type: "dh11", icon: "img/icon_floor.gif", "topic": "/switcher_a0:20:a6:16:f6:2c", value: "", enable: true},
 ]
 
 var devicesIndexs = {}
@@ -103,8 +111,8 @@ function openSocket() {
                         device.value = data.value == true
                     } else if (device.type == "dh11") {
                         device.value = data.value
-                    } else {
-                        device.value = data.value
+                    } else if (device.type == "switcher_readonly") {
+                        device.value = data.value == true
                     }
                 } else {
                     console.log("未识别的设备数据", data);

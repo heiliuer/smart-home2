@@ -4,7 +4,7 @@
 
 - related technology & device
 
-    - esp8266-1 & nodemcu
+    - esp8266 & nodemcu
     - mqtt
     - nodejs http server
     - websocket

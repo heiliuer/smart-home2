@@ -34,7 +34,6 @@ local port = 1883
 
 local topic = "/switcher_" .. mac
 
-mqtt_handler.init(m, topic)
 
 -- on publish message receive event
 m:on("message", function(client, topic, data)
@@ -45,6 +44,8 @@ end)
 print("mqtt inited!")
 
 function my_mqtt.start()
+
+    mqtt_handler.init(m, topic)
 
     m:connect(host, port, 0, 1,
         function(client)
