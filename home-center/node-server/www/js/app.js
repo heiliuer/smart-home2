@@ -3,7 +3,7 @@
  */
 
 var devices = [
-   /* {
+    /*{
         type: "switcher_readonly",
         name: "在办公",
         icon: "img/icon_desk.png",

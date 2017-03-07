@@ -1,5 +1,5 @@
 mqtt_handler = {}
-
+btn_up = require("btn_up")
 local pin_input = 1 --gpio5
 
 local mqtt_enable = false
@@ -20,27 +20,32 @@ local function push_body_leave(mqtt_client, topic)
     push_msg(mqtt_client, topic, 0)
 end
 
+
 function mqtt_handler.init(mqtt_client, topic)
     print("init pulse")
-    do
-        -- use pin 1 as the input pulse width counter
-        local pin, pulse1, du, now, trig = pin_input, 0, 0, tmr.now, gpio.trig
-        gpio.mode(pin, gpio.INT)
-        local function pin1cb(level, pulse2)
-            print(level, pulse2 - pulse1)
-            if level == 1 then
-                push_find_body(mqtt_client, topic)
-                tmr.stop(2)
-                tmr.alarm(2, 1000 * 20, tmr.ALARM_SINGLE, function()
-                    push_body_leave(mqtt_client, topic)
-                end)
+
+    local prev = 0
+
+    local function timer_to_reset()
+        tmr.stop(2)
+        tmr.alarm(2, 1000 * 6, tmr.ALARM_SINGLE, function()
+            if prev == 1 then
+                print("push_body_leave")
+                push_body_leave(mqtt_client, topic)
             end
-            pulse1 = pulse2
-            trig(pin, level == gpio.HIGH and "down" or "up")
+            prev = 0
+        end)
+    end
+
+    btn_up.onPress(pin_input, function()
+        timer_to_reset()
+        if prev == 0 then
+            print("push_find_body")
+            push_find_body(mqtt_client, topic)
+            prev = 1
         end
 
-        trig(pin, "down", pin1cb)
-    end
+    end)
 end
 
 

@@ -26,7 +26,7 @@
         <div class="weui_cell weui_check_label" v-if="device.type=='switcher_readonly'">
             <img :src="device.icon" class="img_light" :class="{gray:!isConnected||!device.value}" alt="">
             <p v-text="device.name"></p>
-            <input type="checkbox"  :disabled="!isConnected||!device.enable" @change="change(device)"
+            <input type="checkbox" style="display: none"  :disabled="!isConnected||!device.enable" @change="change(device)"
                    v-model="device.value"
                    class="weui_switch float_right_switch">
         </div>
