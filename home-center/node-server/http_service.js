@@ -1,12 +1,6 @@
 /**
- * Created by Administrator on 2017/2/11 0011.
+ * Created by heiliuer on 2016/11/17.
  */
-/**
- * Created by Administrator on 2016/11/17.
- */
-require("./DateFormater")
-
-
 var args = process.argv.splice(2);
 
 var PORT;
