@@ -1,8 +1,10 @@
 mqtt_handler = {}
 
 local dh11_pin = 2 --gpio4
+local rain_pin = 1 --gpio5
+local a0_pin = 0
 
-function mqtt_handler.init(mqtt_client,topic)
+function mqtt_handler.init(mqtt_client, topic)
 end
 
 function mqtt_handler.on_mqtt_connect(mqtt_client, topic)
@@ -10,10 +12,10 @@ function mqtt_handler.on_mqtt_connect(mqtt_client, topic)
         --获取温湿度和光强
         local d1, d2, d3, d4 = dht.read11(dh11_pin)
         --光线强度
-        local d5 = adc.read(0)
+        local d5 = adc.read(a0_pin)
         --雨水
-        local d6 = gpio.read(3)
-        local msg = "" .. d1 .. "," .. d2 .. "," .. d3 .. "," .. d4 .. "," .. d5.. "," .. d6
+        local d6 = gpio.read(rain_pin)
+        local msg = "" .. d1 .. "," .. d2 .. "," .. d3 .. "," .. d4 .. "," .. d5 .. "," .. d6
         mqtt_client:publish(topic, msg, 0, 0, function(client)
             --        print("sent")
         end)
