@@ -35,6 +35,10 @@
         <div class="weui_cell weui_check_label" v-if="device.type=='dh11'">
             <p style="text-align: center;width: 100%;margin-left: 0" v-html="parseDh11AndLightData(device.value)"></p>
         </div>
+
+        <div class="weui_cell weui_check_label" v-if="device.type=='slider'">
+            <input :min="device.other.min" :max="device.other.max" type="range" :disabled="!isConnected||!device.enable" @change="change(device)" v-model="device.value">
+        </div>
     </div>
 
 

@@ -20,6 +20,19 @@
             enable: true
         },
         {
+            type: "slider",
+            name: "台灯",
+            icon: "img/icon_desk.png",
+            topic: "/switcher_5c:cf:7f:a2:cc:fe",
+            value: true,
+            enable: true,
+            other: {
+                min: 0,
+                max: 1023
+            }
+        },
+
+        {
             type: "switcher",
             name: "次卧顶灯",
             icon: "img/icon_floor.gif",

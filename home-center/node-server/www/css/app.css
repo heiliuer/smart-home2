@@ -1,46 +1,84 @@
-
 .img_light {
-    width: 100px;
+  width: 100px;
 }
-
 .float_right_switch {
-    float: right;
-    display: inline-block;
-    position: absolute;
-    right: 10%;
-    top: 33%;
+  float: right;
+  display: inline-block;
+  position: absolute;
+  right: 10%;
+  top: 33%;
 }
-
-.img_light,.gray{
-    transition: 1s;
-    animation-timing-function: ease-out;
+.img_light,
+.gray {
+  transition: 1s;
+  animation-timing-function: ease-out;
 }
-
-.gray, #vue-app input:disabled {
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
-    filter: grayscale(100%);
-    filter: gray;
+.gray,
+#vue-app input:disabled {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
-
-.invisiable{
-    display: none;
+.invisiable {
+  display: none;
 }
-
-.top_error p{
-    text-align: center;color: #fff;background-color: #e64340;
+.top_error p {
+  text-align: center;
+  color: #fff;
+  background-color: #e64340;
 }
-
-.p-center{
-    color: #5d5d5d;
-    text-align: center;
-    font-size: 14px;
-    text-decoration: underline;
+.p-center {
+  color: #5d5d5d;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: underline;
 }
-
-.weui_cell > p{
-    margin-left: 1em;
-    color: #565656;
+.weui_cell > p {
+  margin-left: 1em;
+  color: #565656;
+}
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type='range'] {
+    cursor: default;
+    outline: none;
+    overflow: hidden;
+    width: 100%;
+    height: 20px;
+    -webkit-appearance: none;
+    background-color: #E4E4E4;
+    border-radius: 3px;
+  }
+  input[type='range']:active {
+    outline: none;
+  }
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 20px;
+    width: 100%;
+    -webkit-appearance: none;
+    color: #04be02;
+    margin-top: -1px;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background: #04be02;
+    box-shadow: -100% 0 0 100% #04be02;
+  }
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #04be02;
+}
+input[type="range"]::-moz-range-track {
+  background-color: #E4E4E4;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #04be02;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: #E4E4E4;
 }

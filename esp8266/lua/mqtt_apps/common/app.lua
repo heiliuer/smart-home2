@@ -17,6 +17,12 @@ local function start_smart_config()
     end)
 end
 
+
+local function start_mqtt()
+    print("start_mqtt")
+    my_mqtt.start()
+end
+
 --连接wifi
 local function start_connecter()
     print("start connecter")
@@ -32,11 +38,6 @@ local function start_connecter()
                     .. " start_smart_config")
             start_smart_config()
         end)
-end
-
-local function start_mqtt()
-    print("start_mqtt")
-    my_mqtt.start()
 end
 
 

@@ -37,10 +37,18 @@
                 device.disable = true;
                 // console.log(this.status.deskLightOn);
                 if (this.isConnected) {
-                    var data = {
-                        topic: device.topic,
-                        value: device.value ? "1" : "0"
+                    if (device.type == "slider") {
+                        var data = {
+                            topic: device.topic,
+                            value: device.value + ""
+                        }
+                    } else {
+                        var data = {
+                            topic: device.topic,
+                            value: device.value ? "1" : "0"
+                        }
                     }
+
                     socket.send(JSON.stringify(data));
                 }
             }
@@ -81,6 +89,8 @@
                             device.value = data.value
                         } else if (device.type == "switcher_readonly") {
                             device.value = data.value == true
+                        } else if (device.type == "slider") {
+                            device.value = data.value
                         }
                     } else {
                         console.log("未识别的设备数据", data);

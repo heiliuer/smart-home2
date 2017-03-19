@@ -1,43 +1,104 @@
 
 .img_light {
-    width: 100px;
+  width: 100px;
 }
 
 .float_right_switch {
-    float: right;
-    display: inline-block;
-    position: absolute;
-    right: 10%;
-    top: 33%;
+  float: right;
+  display: inline-block;
+  position: absolute;
+  right: 10%;
+  top: 33%;
 }
 
-.img_light,.gray{
-    transition: 1s;
-    animation-timing-function: ease-out;
+.img_light, .gray {
+  transition: 1s;
+  animation-timing-function: ease-out;
 }
 
 .gray, #vue-app input:disabled {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
-.invisiable{
-    display: none;
+.invisiable {
+  display: none;
 }
 
-.top_error p{
-    text-align: center;color:
-        #fff;background-color: #e64340;
+.top_error p {
+  text-align: center;
+  color: #fff;
+  background-color: #e64340;
 }
 
-.p-center{
-    color: #5d5d5d;
-    text-align: center;
-    font-size: 14px;
-    text-decoration: underline;
+.p-center {
+  color: #5d5d5d;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: underline;
 }
 
-.weui_cell > p{
-    margin-left: 1em;
-    color: #565656;
+.weui_cell > p {
+  margin-left: 1em;
+  color: #565656;
+}
+
+@range_color_bg: #E4E4E4;
+@range_color_left: #04be02;
+@range_color_thumb: #04be02;
+
+@range_size: 20px;
+@range_border_radius: 3px;
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type='range'] {
+    &:active {
+      outline: none;
+    }
+    cursor: default;
+    outline: none;
+    overflow: hidden;
+    width: 100%;
+    height: @range_size;
+    -webkit-appearance: none;
+    background-color: @range_color_bg;
+    border-radius: @range_border_radius;
+  }
+
+  input[type='range']::-webkit-slider-runnable-track {
+    height: @range_size;
+    width: 100%;
+    -webkit-appearance: none;
+    color: @range_color_left;
+    margin-top: -1px;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    width: @range_size;
+    height: @range_size;
+    -webkit-appearance: none;
+    border-radius: @range_border_radius;
+    cursor: pointer;
+    background: @range_color_thumb;
+    box-shadow: -100% 0 0 100% @range_color_left;
+  }
+
+}
+
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: @range_color_left;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: @range_color_bg;
+}
+
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: @range_color_left;
+}
+
+input[type="range"]::-ms-fill-upper {
+  background-color: @range_color_bg;
 }
