@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>米家智能家居</title>
+    <title>smart-home2</title>
     <link rel="stylesheet" href="css/weui.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
@@ -37,7 +37,8 @@
         </div>
 
         <div class="weui_cell weui_check_label" v-if="device.type=='slider'">
-            <input :min="device.other.min" :max="device.other.max" type="range" :disabled="!isConnected||!device.enable" @change="change(device)" v-model="device.value">
+            <input :step="device.other.step" :min="device.other.min" :max="device.other.max" type="range"
+                   :disabled="!isConnected||!device.enable" @change="change(device)" v-model="device.value">
         </div>
     </div>
 

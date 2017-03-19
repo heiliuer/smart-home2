@@ -28,7 +28,8 @@
             enable: true,
             other: {
                 min: 0,
-                max: 1023
+                max: 1023,
+                step: 20
             }
         },
 

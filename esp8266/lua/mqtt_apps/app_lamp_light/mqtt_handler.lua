@@ -6,7 +6,7 @@ local pwm_pin = 1 --gpio5
 local btn_pin = 2 --gpio4
 
 local function init_pwm()
-    pwm.setup(pwm_pin, 500, 1023)
+    pwm.setup(pwm_pin, 500, 0)
     pwm.start(pwm_pin)
 end
 
@@ -18,6 +18,7 @@ local function get_pwm_duty()
     return 1023 - pwm.getduty(pwm_pin)
 end
 
+set_pwm_duty(1023)
 
 function mqtt_handler.init(mqtt_client, topic)
     init_pwm()
