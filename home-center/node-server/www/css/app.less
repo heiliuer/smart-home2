@@ -49,6 +49,12 @@
 
 @range_size: 20px;
 @range_border_radius: 3px;
+
+.input_slider {
+  flex: 1;
+  margin-left: 1em;
+}
+
 /*Chrome*/
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type='range'] {
@@ -101,4 +107,10 @@ input[type="range"]::-ms-fill-lower {
 
 input[type="range"]::-ms-fill-upper {
   background-color: @range_color_bg;
+}
+
+.table_cell {
+  width: 50%;
+  display: inline-block;
+  text-align: center;
 }

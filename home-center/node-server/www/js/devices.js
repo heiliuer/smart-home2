@@ -12,16 +12,24 @@
          enable: true
          },*/
         {
-            type: "switcher_readonly",
-            name: "房间有人",
-            icon: "img/icon_at_house.png",
-            topic: "/switcher_a0:20:a6:08:24:e9",
+            type: "switcher",
+            name: "主卧顶灯",
+            icon: "img/icon_floor.gif",
+            topic: "/switcher_a0:20:a6:08:76:dc",
+            value: true,
+            enable: true
+        },
+        {
+            type: "switcher",
+            name: "次卧顶灯",
+            icon: "img/icon_floor.gif",
+            topic: "/switcher_5c:cf:7f:f0:21:31",
             value: true,
             enable: true
         },
         {
             type: "slider",
-            name: "台灯",
+            name: "次卧台灯",
             icon: "img/icon_desk.png",
             topic: "/switcher_5c:cf:7f:a2:cc:fe",
             value: true,
@@ -32,20 +40,11 @@
                 step: 20
             }
         },
-
         {
-            type: "switcher",
-            name: "次卧顶灯",
-            icon: "img/icon_floor.gif",
-            topic: "/switcher_5c:cf:7f:f0:21:31",
-            value: true,
-            enable: true
-        },
-        {
-            type: "switcher",
-            name: "主卧顶灯",
-            icon: "img/icon_floor.gif",
-            topic: "/switcher_a0:20:a6:08:76:dc",
+            type: "switcher_readonly",
+            name: "次卧有人",
+            icon: "img/icon_at_house.png",
+            topic: "/switcher_a0:20:a6:08:24:e9",
             value: true,
             enable: true
         },

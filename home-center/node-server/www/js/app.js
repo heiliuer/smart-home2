@@ -10,9 +10,27 @@
         devicesIndexs[device.topic] = index
     })
 
-    function parseYushui(data) {//0,1
-        return (data === "0" ? "有" : (data === "1" ? "无" : false)) || "--"
-    }
+
+    var dh11Parser = [{
+        "data_index": 1,
+        "name": "温度",
+        "unit": "℃ "
+    }, {
+        "data_index": 2,
+        "name": "湿度",
+        "unit": "% "
+    }, {
+        "data_index": 4,
+        "name": "光强",
+        "unit": ""
+    }, {
+        "data_index": 5,
+        "name": "雨水",
+        "unit": " ",
+        trans: function (value) {
+            return (value === "0" ? "有" : (value === "1" ? "无" : false)) || "--"
+        }
+    },];
 
     var vm = new Vue({
         el: "#vue-app",
@@ -27,10 +45,17 @@
         methods: {
             parseDh11AndLightData: function (value) {
                 var datas = value.split(",");
-                return "温度：" + (datas[1] || "--") + "℃ "
-                    + "湿度：" + (datas[2] || "--") + "% <br/>"
-                    + "光强：" + (datas[4] || "--") + " "
-                    + "雨水：" + parseYushui(datas[5])
+                return dh11Parser.map(function (parser) {
+                    var value = datas[parser.data_index];
+                    if (parser.trans) {
+                        value = parser.trans(value);
+                    }
+                    return $.extend(true, {value: value}, parser);
+                })
+                /*return "温度：" + (datas[1] || "--") + "℃ "
+                 + "湿度：" + (datas[2] || "--") + "% <br/>"
+                 + "光强：" + (datas[4] || "--") + " "
+                 + "雨水：" + parseYushui(datas[5])*/
             },
             change: function (device) {
                 console.log("change:", device)
