@@ -3,6 +3,7 @@
  */
 var args = process.argv.splice(2);
 
+
 var PORT;
 
 try {
@@ -11,7 +12,7 @@ try {
 }
 PORT = PORT || 8081;
 
-
+var fs = require('fs');
 var WebSocketServer = require('websocket').server;
 var express = require('express');
 var app = express();
@@ -21,6 +22,17 @@ var wsServer = new WebSocketServer({httpServer: server, autoAcceptConnections: f
 // this will make Express serve your static files
 app.use(express.static(__dirname + '/www'));
 
+
+var webcam = require("./webcam");
+app.get('/webcam', function (req, res) {
+    webcam(function (img) {
+        // console.log("load img", img);
+        var img = fs.readFileSync(img);
+        res.writeHead(200, {'Content-Type': 'image/jpg'});
+        res.end(img, 'binary');
+    }, true);
+
+});
 
 function originIsAllowed(origin) {
     // put logic here to detect whether the specified origin is allowed.
@@ -47,7 +59,7 @@ wsServer.on('request', function (request) {
 
     onConnect && onConnect(connection);
 
-    console.log((new Date().format("yyyy-MM-dd hh:mm:ss")) + ' Peer ' + connection.remoteAddress + ' connected.');
+    console.log(new Date() + ' Peer ' + connection.remoteAddress + ' connected.');
 
 
     //console.log((new Date()) + ' Connection accepted.');

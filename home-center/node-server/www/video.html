@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>视频监控</title>
+    <style>
+        img[src=""] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h2 style="max-width: 800px;width: 100%;margin: 0 auto">
+    <img id="video_img" src="" width="100%" alt="">
+</h2>
+</body>
+<script src="js/vendor/jquery-1.11.0.min.js"></script>
+<script>
+    var videoImg = document.getElementById("video_img");
+
+    var duration = 1000 * 2;
+
+    var img = new Image();
+
+    var beginTime, loadTime;
+
+    function refresh() {
+        beginTime = new Date().getTime();
+        img.src = "/webcam?random=" + Math.random();
+    }
+
+
+    img.onload = function () {
+        videoImg.src = img.src
+        loadTime = new Date().getTime() - beginTime;
+        setTimeout(refresh, Math.max(0, duration - loadTime));
+    };
+
+    refresh();
+</script>
+</html>

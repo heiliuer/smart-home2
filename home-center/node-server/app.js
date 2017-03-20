@@ -2,11 +2,12 @@
  * Created by heiliuer on 2017/2/9.
  */
 var mosca = require('mosca');
+var httpServices = require("./http_service");
 
 var ascoltatore = {
     //using ascoltatore
-    type: 'mongo',
-    url: 'mongodb://localhost:27017/mqtt',
+    // type: 'mongo',
+    // url: 'mongodb://localhost:27017/mqtt',
     pubsubCollection: 'ascoltatori',
     mongo: {}
 };
@@ -18,11 +19,9 @@ var settings = {
 
 var server = new mosca.Server(settings);
 
+var clientStatus = [];
 
-var httpServices = require("./http_services");
-
-var clientStatus = []
-var clientStatusIndex = {}
+var clientStatusIndex = {};
 
 function addAndRefreshClientStatus(packet, client) {
     var topic = packet.topic;
